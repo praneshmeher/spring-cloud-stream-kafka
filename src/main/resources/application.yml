@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: kafka
+  cloud:
+    stream:
+      function:
+        definition: processOrder
+        bindings:
+          processOrder-in-0: orders-input
+          processOrder-out-0: orders-output
+      bindings:
+        orders-input:
+          group: order-group
+          destination: incoming-orders
+        orders-output:
+          destination: processed-orders
+      kafka:
+        binder:
+          autoCreateTopics: true
+          brokers: localhost:9092
